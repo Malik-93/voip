@@ -25,5 +25,4 @@ export const s3_client = new S3Client(aws_configs);
 //         Key: ""
 //     }
 //     const data = s3.upload(params);
-
 // }
