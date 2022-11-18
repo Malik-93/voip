@@ -56,5 +56,3 @@ export const MESSAGES = {
 
     }
 }
-
-export const MULTER_DIR: string = 'uploads';
