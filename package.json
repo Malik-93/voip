@@ -9,8 +9,6 @@
     "npm": "8.19.2"
   },
   "scripts": {
-    "prestart": "yarn run build",
-    "postinstall": "yarn start",
     "start": "node dist/index.js",
     "predev": "npm run swagger",
     "prebuild": "npm run swagger",
