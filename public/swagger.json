@@ -1,0 +1,998 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Types.ObjectId": {
+				"type": "string"
+			},
+			"JwtPayload": {
+				"properties": {
+					"iss": {
+						"type": "string"
+					},
+					"sub": {
+						"type": "string"
+					},
+					"aud": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"exp": {
+						"type": "number",
+						"format": "double"
+					},
+					"nbf": {
+						"type": "number",
+						"format": "double"
+					},
+					"iat": {
+						"type": "number",
+						"format": "double"
+					},
+					"jti": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": {}
+			},
+			"ICompanyResponse": {
+				"properties": {
+					"_id": {
+						"$ref": "#/components/schemas/Types.ObjectId"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"company_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"namespace": {
+						"type": "string"
+					},
+					"authToken": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/JwtPayload"
+							},
+							{
+								"type": "string"
+							}
+						]
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IRegisterCompanyRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"company_id": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ILoginCompanyRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IUserResponse": {
+				"properties": {
+					"user_id": {
+						"$ref": "#/components/schemas/Types.ObjectId"
+					},
+					"company_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"namespace": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"authToken": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/JwtPayload"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"socket_id": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IRegisterUserRequest": {
+				"properties": {
+					"user_id": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/Types.ObjectId"
+							},
+							{}
+						]
+					},
+					"last_name": {
+						"type": "string"
+					},
+					"auth_company": {},
+					"first_name": {
+						"type": "string"
+					},
+					"user_name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"socket_id": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"first_name",
+					"user_name",
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ILoginUserRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IUserProfileRequest": {
+				"properties": {
+					"first_name": {
+						"type": "string"
+					},
+					"last_name": {
+						"type": "string"
+					},
+					"user_name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"socket_id": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IChatResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"chat_id": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FlattenMaps_T_": {
+				"properties": {},
+				"type": "object"
+			},
+			"IUser": {
+				"$ref": "#/components/schemas/FlattenMaps_T_"
+			},
+			"IMessage": {
+				"properties": {
+					"_id": {
+						"$ref": "#/components/schemas/Types.ObjectId"
+					},
+					"_chat_id": {},
+					"_issue_id": {
+						"type": "string"
+					},
+					"_sender": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/IUser"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"_reciever": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/IUser"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"message_id": {
+						"type": "string"
+					},
+					"message_type": {
+						"type": "number",
+						"format": "double"
+					},
+					"text": {
+						"type": "string"
+					},
+					"files": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"seen": {
+						"type": "boolean"
+					},
+					"active": {
+						"type": "boolean"
+					},
+					"created_at": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IChatCreateUpdateRequest": {
+				"properties": {
+					"chat_id": {
+						"type": "string"
+					},
+					"_id": {
+						"type": "string"
+					},
+					"_sender": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/IUser"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"_reciever": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/IUser"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"_issue_id": {
+						"type": "string"
+					},
+					"message": {
+						"$ref": "#/components/schemas/IMessage"
+					},
+					"messages": {
+						"items": {
+							"$ref": "#/components/schemas/IMessage"
+						},
+						"type": "array"
+					},
+					"active": {
+						"type": "boolean"
+					},
+					"created_at": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IAllChatsResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"chat_id": {
+						"type": "string"
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"chats": {
+						"items": {
+							"$ref": "#/components/schemas/IMessage"
+						},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IAssignChat": {
+				"properties": {
+					"chat_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"chat_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ITransferChat": {
+				"properties": {
+					"chat_id": {
+						"type": "string"
+					},
+					"agent_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"chat_id",
+					"agent_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IChatClose": {
+				"properties": {
+					"chat_id": {
+						"type": "string"
+					},
+					"active": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"chat_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IissueResponse": {
+				"$ref": "#/components/schemas/FlattenMaps_T_"
+			},
+			"IissueRequest": {
+				"properties": {
+					"issue_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"api_key": {
+				"type": "apiKey",
+				"name": "authorization",
+				"in": "header",
+				"description": "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token in the text input below.Example: 'Bearer 12345abcdef'"
+			}
+		}
+	},
+	"info": {
+		"title": "voip",
+		"version": "1.1.1",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/api/v1/companies/register": {
+			"post": {
+				"operationId": "Register_company",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICompanyResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Companies"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IRegisterCompanyRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/companies/login": {
+			"post": {
+				"operationId": "Login_company",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICompanyResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"email": "cubefunder@gmail.com",
+											"password": "1234"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Companies"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ILoginCompanyRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/users/register": {
+			"post": {
+				"operationId": "Register_user",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IRegisterUserRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/users/login": {
+			"post": {
+				"operationId": "Login_user",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUserResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"email": "customeruser@gmail.com",
+											"password": "1234"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ILoginUserRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/users/profile_update": {
+			"post": {
+				"operationId": "Update_user_profile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUserResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"email": "customer@gmail.com",
+											"first_name": "Customer",
+											"last_name": "Portal",
+											"user_name": "Customer"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUserProfileRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/enums": {
+			"get": {
+				"operationId": "Get_enums",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"result": {
+											"items": {},
+											"type": "array"
+										}
+									},
+									"required": [
+										"result"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Enums"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/v1/chats/create_update": {
+			"post": {
+				"operationId": "Create_update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IChatResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"chat_id": "",
+											"_issue_id": "63689c8f61bd259d310f268d",
+											"message": {
+												"message_type": 1,
+												"text": "Hello",
+												"seen": true,
+												"active": true
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Chats"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IChatCreateUpdateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/chats/get_active": {
+			"get": {
+				"operationId": "Get_active",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IAllChatsResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Chats"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/api/v1/chats/get_all": {
+			"get": {
+				"operationId": "Get_all",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IAllChatsResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Chats"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/api/v1/chats/assign": {
+			"post": {
+				"operationId": "Assign",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IChatResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"chat_id": "63720ad1a07f4897726c6a2d"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Chats"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IAssignChat"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/chats/transfer": {
+			"post": {
+				"operationId": "Transfer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IChatResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"chat_id": "63720ad1a07f4897726c6a2d",
+											"agent_id": "63689c8f61bd259d310f268d"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Chats"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITransferChat"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/chats/close": {
+			"post": {
+				"operationId": "Close_chat",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Chats"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IChatClose"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/issues/create_update": {
+			"post": {
+				"operationId": "Create_update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IissueResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"issue_id": 0,
+											"title": "I have an issue"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Issues"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IissueRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/issues/get_active": {
+			"get": {
+				"operationId": "Get_active",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IissueResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Issues"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
