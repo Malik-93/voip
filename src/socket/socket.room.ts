@@ -42,7 +42,7 @@ export default (io: any, socket: ISocket, namespace: string) => {
         //     }
         // };
         request.post(
-            `${process.env.SERVER_URL}:${process.env.PORT}/api/v1/chats/create_update`,
+            `${process.env.SERVER_URL}/api/v1/chats/create_update`,
             {
                 json: payload,
                 headers: {
