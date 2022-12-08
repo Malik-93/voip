@@ -14,7 +14,7 @@ class UserRepository {
             throw error;
         }
     };
-    public async user_repo_find_many(filter: Array<{ key: IUserFilter[_FilterUserUnion], value: any }>): Promise<IUserResponse | any> {
+    public async user_repo_find_many(filter: Array<{ [key: string]: any }>): Promise<IUserResponse | any> {
         try {
             const users_list = await User.find({ $or: filter });;
             return users_list;
@@ -78,6 +78,29 @@ class UserRepository {
             throw error;
         }
     }
+    public async user_repo_generic_login(_user: ILoginUserRequest): Promise<IUserLoginResponse | any> {
+        const { user_name } = _user;
+        try {
+            let user: IUser | any = null;
+            user = await User.findOne({ user_name });
+            if (user) {
+                user = {
+                    _id: user._id,
+                    user_id: user._id,
+                    email: user.email,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    user_name: user.user_name,
+                    namespace: user.namespace,
+                    company_id: user.company_id,
+                    socket_id: user.socket_id,
+                }
+            }
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    };
     public async user_repo_update_profile(_user: IUserProfileRequest, auth_user: _AuthUser): Promise<IUserLoginResponse | any> {
         const { email, first_name, last_name, socket_id, user_name } = _user;
         const { user_id } = auth_user;

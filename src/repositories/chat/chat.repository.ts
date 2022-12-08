@@ -15,14 +15,16 @@ class ChatRepository {
         }
     };
     public async chat_repo_create(_chat: IChatCreateUpdateRequest, auth_user: _AuthUser): Promise<any> {
-        const { _issue_id, _reciever, message, } = _chat;
+        // const { _issue_id, _reciever, message, } = _chat;
+        const { _issue_id, message, } = _chat;
         const { user_id } = auth_user;
         try {
             const _chat_id = new mongoose.Types.ObjectId
             const new_chat = new Chat({
                 _id: _chat_id,
                 _sender: user_id,
-                messages: [{ ...message, _reciever, _sender: user_id, _chat_id }],
+                // messages: [{ ...message, _reciever, _sender: user_id, _chat_id }],
+                messages: [{ ...message, _sender: user_id, _chat_id }],
                 _issue: _issue_id
             })
             return await new_chat.save();

@@ -28,17 +28,24 @@ export interface IUser extends Document {
 
 export interface IRegisterUserRequest {
     user_id?: IUser['user_id'],
-    last_name?: IUser['last_name'],
+    /**
+     * @ignore
+     */
     auth_company?: any,
     first_name: IUser['first_name'],
+    last_name?: IUser['last_name'],
     user_name: IUser['user_name'],
     email: IUser['email'],
+    /**
+   * @ignore
+   */
     socket_id?: IUser['socket_id'],
     password: IUser['password'],
 }
 export interface ILoginUserRequest {
-    email: IUser['email'],
-    password: IUser['password']
+    email?: IUser['email'],
+    password?: IUser['password']
+    user_name?: IUser['user_name']
 }
 export interface IUserProfileRequest {
     first_name?: IUser['first_name'],

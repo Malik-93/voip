@@ -11,7 +11,7 @@ const messageSchema: Schema = new Schema<IMessage>({
     _reciever: {
         type: Schema.Types.ObjectId,
         ref: USER.MODEL_SCHEMA_NAME,
-        required: true
+        required: false
     },
     _chat_id: {
         type: Schema.Types.ObjectId,

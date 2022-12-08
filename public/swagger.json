@@ -84,6 +84,10 @@
 			},
 			"IRegisterCompanyRequest": {
 				"properties": {
+					"company_id": {
+						"type": "number",
+						"format": "double"
+					},
 					"name": {
 						"type": "string"
 					},
@@ -92,10 +96,6 @@
 					},
 					"password": {
 						"type": "string"
-					},
-					"company_id": {
-						"type": "number",
-						"format": "double"
 					}
 				},
 				"required": [
@@ -168,20 +168,16 @@
 							{}
 						]
 					},
-					"last_name": {
+					"first_name": {
 						"type": "string"
 					},
-					"auth_company": {},
-					"first_name": {
+					"last_name": {
 						"type": "string"
 					},
 					"user_name": {
 						"type": "string"
 					},
 					"email": {
-						"type": "string"
-					},
-					"socket_id": {
 						"type": "string"
 					},
 					"password": {
@@ -204,12 +200,11 @@
 					},
 					"password": {
 						"type": "string"
+					},
+					"user_name": {
+						"type": "string"
 					}
 				},
-				"required": [
-					"email",
-					"password"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -421,9 +416,6 @@
 				"properties": {
 					"chat_id": {
 						"type": "string"
-					},
-					"active": {
-						"type": "boolean"
 					}
 				},
 				"required": [
@@ -467,7 +459,10 @@
 		"license": {
 			"name": "ISC"
 		},
-		"contact": {}
+		"contact": {
+			"name": "Mudassir Malik ",
+			"email": "Malikjrw147@gmail.com"
+		}
 	},
 	"openapi": "3.0.0",
 	"paths": {
@@ -595,6 +590,45 @@
 										"value": {
 											"email": "customeruser@gmail.com",
 											"password": "1234"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ILoginUserRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/users/generic/login": {
+			"post": {
+				"operationId": "Login_generic",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUserResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"user_name": "Ines Macedo"
 										}
 									}
 								}

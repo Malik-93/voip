@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-let str = 'chats'
-test("/ Chat controller test cases", async () => {
+const str = 'chats'
+it("/ Chat controller test cases", async () => {
   expect(str).toBe(str)
 })

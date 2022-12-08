@@ -124,7 +124,7 @@ class EnumController {
             } else {
                 const company_socket = socket.get_io_list().find((s: ISocketElement) => s.namespace === namespace);
                 if (company_socket) {
-                    const users_list: Array<IUser> = await userRepository.user_repo_find_many([{ key: '_id', value: `${db_chat._sender}` }, { key: '_id', value: `${user_id}` }])
+                    const users_list: Array<IUser> = await userRepository.user_repo_find_many([{ '_id': `${db_chat._sender}` }, { '_id': `${user_id}` }])
                     company_socket.socket.to(users_list.map(_u => _u.socket_id) as Array<string>).emit('chat_assigned', db_chat._id);
                     await ChatRepo.chat_repo_update({ chat_id: _chat.chat_id, _reciever: user_id }, auth_user);
                     result = {
@@ -188,7 +188,7 @@ class EnumController {
                 const company_socket = socket.get_io_list().find((s: ISocketElement) => s.namespace === namespace);
                 if (company_socket) {
                     await ChatRepo.chat_repo_close({ chat_id: _chat.chat_id, active: false }, auth_user);
-                    const users_list: Array<IUser> = await userRepository.user_repo_find_many([{ key: '_id', value: `${db_chat._sender}` }, { key: '_id', value: `${db_chat._reciever}` }])
+                    const users_list: Array<IUser> = await userRepository.user_repo_find_many([{ '_id': `${db_chat._sender}` }, { '_id': `${db_chat._reciever}` }])
                     company_socket.socket.to(users_list.map(_u => _u.socket_id) as Array<string>).emit('chat_closed', db_chat._id);
                     result = {
                         message: `Chat having id as ${_chat.chat_id} closed!!`,

@@ -1,6 +1,4 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
-test("should return pong message", async () => {
-  expect(`enums`).toBe(`enums`)
+it("__enum.controller tests__", () => {
+  const str = 'enum';
+  expect(str).toBe(str)
 })

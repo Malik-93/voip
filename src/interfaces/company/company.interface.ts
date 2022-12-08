@@ -24,10 +24,10 @@ export interface ICompany extends Document {
 
 
 export interface IRegisterCompanyRequest {
+    company_id?: ICompany['company_id'],
     name: ICompany['name'],
     email: ICompany['email'],
     password: ICompany['password'],
-    company_id?: ICompany['company_id'],
 }
 export interface ILoginCompanyRequest {
     email: ICompany['email'],

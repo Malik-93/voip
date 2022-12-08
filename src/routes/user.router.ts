@@ -18,7 +18,18 @@ router.post('/register', [auth.company_rights], async (req: IReq, res: Response,
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await _user_controller.login_user(req.body);
-        if (!result.company_id) {
+        if (!result.user_id) {
+            return res.status(200).json(response.info(undefined, result.statusCode, result));
+        }
+        return res.status(200).json(response.success(undefined, result.statusCode, result));
+    } catch (error: any) {
+        return res.status(500).json(response.error(undefined, undefined, error));
+    }
+});
+router.post('/generic/login', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const result = await _user_controller.login_generic(req.body);
+        if (!result.user_id) {
             return res.status(200).json(response.info(undefined, result.statusCode, result));
         }
         return res.status(200).json(response.success(undefined, result.statusCode, result));

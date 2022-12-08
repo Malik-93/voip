@@ -56,3 +56,10 @@ export const MESSAGES = {
 
     }
 }
+
+export const MULTER_DIR: string = 'uploads';
+
+export const SOCKET_EVENTS = {
+    INIT_NEW_CHAT: "INIT_NEW_CHAT",
+    SEND_MESSAGE: "SEND_MESSAGE",
+}

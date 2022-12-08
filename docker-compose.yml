@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  voip-app:
+    container_name: voip-server
+    image: mudassir093/voip
+    restart: always
+    build: .
+   #  command: sh -c "yarn install && yarn test && yarn start"
+    ports:
+       - 8080:8080
+    links:
+       - mongo   
+    working_dir: /app
+    volumes:
+       - ./:/app
+    environment:
+      - PROJECT=VOIP
+      - PORT=8080
+      - MONGO_DB_URI=mongodb+srv://Mudssir93:AY7MaakY1mvCzR6T@cluster0.zohk8.mongodb.net/VOIP
+      - COMPANY_JWT_SECRET=5G7o0NXTxM8le/OD3Y240lqKLle8yS187lL1PR3u
+      - COMPANY_JWT_EXPIRES_IN=1d
+      - USER_JWT_SECRET=6G7Z0NXTxE8le/GD3Y240lqKLbe8yS987lP1PR3u
+      - USER_JWT_EXPIRES_IN=1d
+      - SERVER_URL=http://localhost:8080
+      - AWS_ACCESS_KEY=AKIARAKGEN2WQY3NWMW5
+      - AWS_ACCESS_SECRET=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
+      - AWS_BUCKET_NAME=voip-v1-bucket
+      - AWS_BUCKET_FOLDER=voip-files
+      - AWS_REGION=ap-south-1
+  mongodb:
+   image: mongo:4.2.8
+   ports:
+   - 27017:27017
+   volumes:
+   - mongodb:/data/db
+   - mongodb_config:/data/configdb  

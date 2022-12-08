@@ -1,0 +1,25 @@
+image: node:16
+
+pipelines:
+  default:
+        - step:
+            name: Build and Test
+            caches:
+              - nodecustom
+              - yarncustom
+            script:
+            - echo "mudassirmalik" | docker login -u mudassirmalik --password-stdin
+            - checkout
+            - docker-compose build
+            - docker tag voip:latest mudassirmalik/voip:latest 
+            - docker push mudassirmalik/voip:latest
+            - docker pull mudassirmalik/voip:latest
+              # - curl -o- -L https://yarnpkg.com/install.sh
+              # - export PATH=$HOME/.yarn/bin:$PATH
+              # - yarn install
+              # - yarn test
+              # - yarn build
+definitions:
+  caches:
+      nodecustom: ./node_modules
+      yarncustom: /usr/local/share/.cache/yarn/v1

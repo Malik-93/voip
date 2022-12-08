@@ -12,5 +12,5 @@ export const controller_catch_error = (error: any) => {
     // else if ((error as _MongoError).code === MONGO.DUPLICATE_KEY_VALUE) {
     //     error = { ...(error as _MongoError) };
     // }
-    return error;
+    return JSON.stringify(error);
 }

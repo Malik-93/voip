@@ -17,7 +17,6 @@ const connection = mongoose.connect(`${process.env.MONGO_DB_URI}`, {
     // reconnectInterval: 500,
     // useUnifiedTopology: true,
 });
-
 connection
     .then((db) => {
         logger.info('[MongoDB] - connected to database');

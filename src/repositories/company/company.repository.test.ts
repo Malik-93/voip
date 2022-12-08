@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-let str = 'company.repository';
-test("should return pong message", async () => {
+const str = 'company.repository';
+it("should return pong message", () => {
     expect(str).toBe(str)
 })

@@ -48,6 +48,9 @@ export interface IAllChatsResponse extends IChatResponse {
 
 export interface IChatClose {
     chat_id: string,
+    /**
+ * @ignore
+ */
     active?: boolean,
 }
 
