@@ -11,7 +11,9 @@ router.post('/upload', async (req: IReq, res: Response, next: NextFunction) => {
     multer_upload(req, res, (error: any) => {
         try {
             if (error) throw error;
-            return res.status(API.STATUS_SUCCESS).json(response.success('File uploaded successfully!', undefined, { data: req?.files }));
+            // @ts-ignore
+            const files: any[] = req?.files ?? [];
+            return res.status(API.STATUS_SUCCESS).json(response.success('File uploaded successfully!', undefined, { files_info: files.map((f: any) => ({ ...f, uri: `${process.env.SERVER_URL}/${f.path}` })) }));
         } catch (error: any) {
             return res.status(API.STATUS_INTERNAL_SERVER_ERROR).json(response.error(undefined, undefined, error));
         }

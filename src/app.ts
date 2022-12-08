@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(bodyParser.json({ type: 'application/*+json' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan("tiny"));
+app.use('/uploads', express.static("uploads"));
 app.use(express.static("public"));
 app.use(cors({ origin: "*" }));
 
