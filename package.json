@@ -2,9 +2,9 @@
   "name": "voip",
   "version": "1.1.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "yarn build && node dist/index.js",
+    "start": "node dist/index.js",
     "predev": "npm run swagger",
     "prebuild": "npm run swagger",
     "build": "tsc",
