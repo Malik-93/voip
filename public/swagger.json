@@ -628,7 +628,11 @@
 								"examples": {
 									"Example 1": {
 										"value": {
-											"user_name": "Ines Macedo"
+											"fname": "Rani",
+											"lname": "Khan",
+											"username": "mohsinkhan",
+											"email": "sales@amufi.co.uk",
+											"phone": "07551500000"
 										}
 									}
 								}
@@ -645,9 +649,7 @@
 					"required": true,
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ILoginUserRequest"
-							}
+							"schema": {}
 						}
 					}
 				}

@@ -78,11 +78,19 @@ class UserRepository {
             throw error;
         }
     }
-    public async user_repo_generic_login(_user: ILoginUserRequest): Promise<IUserLoginResponse | any> {
-        const { user_name } = _user;
+    public async user_repo_generic_login(_user: any): Promise<IUserLoginResponse | any> {
+        console.log('__[_user]__', _user);
+        const { fname, lname, email, username, namespace, company_id } = _user;
         try {
             let user: IUser | any = null;
-            user = await User.findOne({ user_name });
+            user = await User.findOne({
+                $or: [
+                    { "user_name": username },
+                    { "first_name": fname },
+                    { "last_name": lname },
+                    { "email": email },
+                ]
+            });
             if (user) {
                 user = {
                     _id: user._id,
@@ -94,6 +102,32 @@ class UserRepository {
                     namespace: user.namespace,
                     company_id: user.company_id,
                     socket_id: user.socket_id,
+                }
+            } else {
+                const new_user = new User({
+                    _id: new mongoose.Types.ObjectId(),
+                    user_id: unique_id_generator(),
+                    first_name: fname,
+                    last_name: lname,
+                    user_name: username,
+                    email,
+                    namespace: "0140887-cubefunder-166780",
+                    company_id: 1667800143551,
+                    password: "asdlfj897sd9f87080",
+                    _company_ref: "63689c0261bd259d310f2688"
+
+                });
+                const _user = await new_user.save();
+                user = {
+                    _id: _user._id,
+                    user_id: _user._id,
+                    email: _user.email,
+                    first_name: _user.first_name,
+                    last_name: _user.last_name,
+                    user_name: _user.user_name,
+                    namespace: _user.namespace,
+                    company_id: _user.company_id,
+                    socket_id: _user.socket_id,
                 }
             }
             return user;

@@ -26,7 +26,7 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
         return res.status(500).json(response.error(undefined, undefined, error));
     }
 });
-router.post('/generic/login', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/generic/login', async (req: IReq, res: Response, next: NextFunction) => {
     try {
         const result = await _user_controller.login_generic(req.body);
         if (!result.user_id) {

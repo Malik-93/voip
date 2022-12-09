@@ -5,7 +5,7 @@ import { generate_jwt } from '../../helpers/jwt/token.helper';
 import { controller_catch_error } from '../../helpers/error/error.helper';
 import { ILoginUserRequest, IRegisterUserRequest, IUser, IUserLoginResponse, IUserProfileRequest, IUserResponse } from '../../interfaces/user/user.interface';
 import { Post, Tags, Route, Body, Security, Request, Example } from "tsoa";
-import UserRepo from '../../repositories/user';@Tags("Users")
+import UserRepo from '../../repositories/user'; @Tags("Users")
 @Route("/api/v1/users")
 class CompanyController {
     @Security("api_key")
@@ -74,13 +74,17 @@ class CompanyController {
         }
     }
     @Post("/generic/login")
-    @Example<ILoginUserRequest>({
-        user_name: "Ines Macedo",
+    @Example<any>({
+        "fname": "Rani",
+        "lname": "Khan",
+        "username": "mohsinkhan",
+        "email": "sales@amufi.co.uk",
+        "phone": "07551500000",
     })
-    public async login_generic(@Body() body: ILoginUserRequest): Promise<IUserResponse> {
+    public async login_generic(@Body() body: any): Promise<IUserResponse> {
         try {
             let result = {};
-            const userData = <IUser & IUserLoginResponse>await UserRepo.user_repo_generic_login(body);
+            const userData = <IUser & IUserLoginResponse>await UserRepo.user_repo_generic_login(body.user);
             if (!userData) result = {
                 message: `User not found!!`,
                 statusCode: CODES.API.STATUS_NOT_FOUND,

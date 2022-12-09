@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "swagger",
+			"problemMatcher": [],
+			"label": "npm: swagger",
+			"detail": "tsoa spec"
+		},
+		{
+			"type": "typescript",
+			"tsconfig": "/tsconfig.json",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build",
+			"label": "tsc: build - /tsconfig.json"
+		}
+	]
+}
